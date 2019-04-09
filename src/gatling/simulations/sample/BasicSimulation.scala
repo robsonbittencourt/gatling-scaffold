@@ -2,6 +2,7 @@ package sample
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import scala.concurrent.duration._
 
 class BasicSimulation extends Simulation {
 
@@ -18,7 +19,7 @@ class BasicSimulation extends Simulation {
     .get("/"))
 
   setUp(
-    scn.inject(atOnceUsers(1))
-  ).protocols(httpProtocol)
+    scn.inject(constantUsersPerSec(10) during(10 seconds))
+  ).protocols(httpProtocol).assertions(global.responseTime.percentile3.gt(95))
 
 }
