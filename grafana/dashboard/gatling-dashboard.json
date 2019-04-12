@@ -18,118 +18,6 @@
   "links": [],
   "panels": [
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "InfluxDB",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 6,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "1m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "linear"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "gatling.users",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "active"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "request",
-              "operator": "=",
-              "value": "allUsers"
-            }
-          ]
-        }
-      ],
-      "thresholds": "",
-      "title": "Users in last minute",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -143,7 +31,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 0
       },
       "id": 1,
       "interval": "10s",
@@ -264,7 +152,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 7
       },
       "id": 2,
       "interval": "10s",
@@ -483,7 +371,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 14
       },
       "id": 3,
       "interval": "10s",
@@ -643,7 +531,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 21
       },
       "id": 4,
       "interval": "10s",
