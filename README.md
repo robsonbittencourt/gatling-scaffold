@@ -9,3 +9,6 @@ docker run -it --rm --net="host" \
     -v "$PWD"/build/reports/gatling:/opt/gatling/results \
     denvazh/gatling -s sample.BasicSimulation
 ```
+
+https://gatling.io/docs/current/cheat-sheet/
+https://grafana.com/dashboards/9935
