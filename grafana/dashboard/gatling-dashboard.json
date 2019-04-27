@@ -21,7 +21,7 @@
   "editable": true,
   "gnetId": 9935,
   "graphTooltip": 0,
-  "iteration": 1556238235529,
+  "iteration": 1556399802515,
   "links": [],
   "panels": [
     {
@@ -100,7 +100,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -212,6 +218,12 @@
                 "$g"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "gatling.users",
@@ -233,7 +245,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
+            }
+          ]
         }
       ],
       "thresholds": "",
@@ -247,7 +265,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "aliasColors": {},
@@ -322,7 +340,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -433,6 +457,12 @@
                 "$g"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "0"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "gatling",
@@ -457,20 +487,26 @@
           "tags": [
             {
               "key": "request",
-              "operator": "=",
-              "value": "allRequests"
+              "operator": "=~",
+              "value": "/^$request$/"
             },
             {
               "condition": "AND",
               "key": "status",
               "operator": "=",
               "value": "ok"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
             }
           ]
         }
       ],
       "thresholds": "",
-      "title": "Latency 95th (only ok)",
+      "title": "Latency 95th (ok only)",
       "type": "singlestat",
       "valueFontSize": "200%",
       "valueMaps": [
@@ -480,7 +516,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -492,6 +528,7 @@
         "#d44a3a"
       ],
       "datasource": "InfluxDB",
+      "decimals": 0,
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -534,51 +571,64 @@
           "to": "null"
         }
       ],
+      "repeat": null,
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
+      "tableColumn": "last",
       "targets": [
         {
           "groupBy": [
             {
               "params": [
-                "$g"
+                "1s"
               ],
               "type": "time"
-            },
-            {
-              "params": [
-                "0"
-              ],
-              "type": "fill"
             }
           ],
-          "measurement": "gatling.users",
+          "measurement": "gatling",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT last(\"count\") FROM \"gatling\" WHERE (\"request\" = 'allRequests' AND \"status\" = 'all') AND $timeFilter GROUP BY time($g)",
-          "rawQuery": true,
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "active"
+                  "count"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "last"
+                "type": "mean"
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "request",
+              "operator": "=~",
+              "value": "/^$request$/"
+            },
+            {
+              "condition": "AND",
+              "key": "status",
+              "operator": "=",
+              "value": "all"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
+            }
+          ]
         }
       ],
       "thresholds": "",
@@ -592,7 +642,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "aliasColors": {
@@ -674,10 +724,8 @@
                 "type": "field"
               },
               {
-                "params": [
-                  "95"
-                ],
-                "type": "percentile"
+                "params": [],
+                "type": "mean"
               },
               {
                 "params": [
@@ -708,14 +756,20 @@
           "tags": [
             {
               "key": "request",
-              "operator": "=",
-              "value": "allRequests"
+              "operator": "=~",
+              "value": "/^$request$/"
             },
             {
               "condition": "AND",
               "key": "status",
               "operator": "=",
               "value": "ok"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
             }
           ]
         }
@@ -825,7 +879,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT min(\"min\") AS \"Min\", max(\"max\") AS \"Max\", mean(\"mean\") AS \"Mean\", percentile(\"percentiles95\", 95) AS \"95th pct\" FROM \"gatling\" WHERE (\"status\" = 'all' AND \"request\" != 'allRequests') AND $timeFilter GROUP BY \"request\"\n",
-          "rawQuery": true,
+          "rawQuery": false,
           "refId": "D",
           "resultFormat": "table",
           "select": [
@@ -908,7 +962,13 @@
             {
               "key": "status",
               "operator": "=",
-              "value": "all"
+              "value": "ok"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
             },
             {
               "condition": "AND",
@@ -919,7 +979,7 @@
           ]
         }
       ],
-      "title": "Statistics",
+      "title": "Statistics (ok only)",
       "transform": "table",
       "type": "table"
     },
@@ -929,6 +989,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDB",
+      "decimals": 0,
       "editable": true,
       "error": false,
       "fill": 1,
@@ -945,13 +1006,15 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
         "max": true,
         "min": true,
         "rightSide": false,
         "show": true,
         "sort": "total",
         "sortDesc": true,
-        "total": true,
+        "total": false,
         "values": true
       },
       "lines": true,
@@ -992,7 +1055,7 @@
           "groupBy": [
             {
               "params": [
-                "$g"
+                "1s"
               ],
               "type": "time"
             }
@@ -1002,7 +1065,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT last(\"count\") FROM \"gatling\" WHERE (\"request\" = 'allRequests' AND \"status\" = 'all') AND $timeFilter GROUP BY time($g)",
-          "rawQuery": true,
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1015,21 +1078,27 @@
               },
               {
                 "params": [],
-                "type": "last"
+                "type": "mean"
               }
             ]
           ],
           "tags": [
             {
               "key": "request",
-              "operator": "=",
-              "value": "allRequests"
+              "operator": "=~",
+              "value": "/^$request$/"
             },
             {
               "condition": "AND",
               "key": "status",
               "operator": "=",
               "value": "all"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
             }
           ]
         }
@@ -1054,6 +1123,7 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "reqps",
           "label": "Number of requests",
           "logBase": 1,
@@ -1062,12 +1132,13 @@
           "show": true
         },
         {
+          "decimals": 0,
           "format": "none",
           "label": "Active Users",
           "logBase": 1,
           "max": null,
           "min": "0",
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -1137,7 +1208,8 @@
           "measurement": "gatling",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"count\" FROM \"gatling\" WHERE \"request\" = 'allRequests' AND \"status\" = 'ko' AND $timeFilter",
+          "query": "SELECT count(\"min\") FROM \"gatling\" WHERE (\"request\" =~ /^$request$/ AND \"status\" = 'ko' AND \"simulation\" =~ /^$simulation$/) AND $timeFilter",
+          "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -1150,21 +1222,27 @@
               },
               {
                 "params": [],
-                "type": "last"
+                "type": "sum"
               }
             ]
           ],
           "tags": [
             {
               "key": "request",
-              "operator": "=",
-              "value": "allRequests"
+              "operator": "=~",
+              "value": "/^$request$/"
             },
             {
               "condition": "AND",
               "key": "status",
               "operator": "=",
               "value": "ko"
+            },
+            {
+              "condition": "AND",
+              "key": "simulation",
+              "operator": "=~",
+              "value": "/^$simulation$/"
             }
           ]
         }
@@ -1287,8 +1365,14 @@
                 {
                   "condition": "AND",
                   "key": "request",
-                  "operator": "=",
-                  "value": "allRequests"
+                  "operator": "=~",
+                  "value": "/^$request$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
                 }
               ]
             }
@@ -1416,8 +1500,14 @@
                 {
                   "condition": "AND",
                   "key": "request",
-                  "operator": "=",
-                  "value": "allRequests"
+                  "operator": "=~",
+                  "value": "/^$request$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
                 }
               ]
             }
@@ -1491,13 +1581,13 @@
             "show": true,
             "sort": "total",
             "sortDesc": true,
-            "total": true,
+            "total": false,
             "values": true
           },
           "lines": true,
           "linewidth": 3,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1546,7 +1636,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "$tag_simulation ($col)",
+              "alias": "$tag_simulation::$col",
               "dsType": "influxdb",
               "fields": [
                 {
@@ -1696,53 +1786,22 @@
               "tags": [
                 {
                   "key": "request",
-                  "operator": "=",
-                  "value": "allRequests"
+                  "operator": "=~",
+                  "value": "/^$request$/"
                 },
                 {
                   "condition": "AND",
                   "key": "status",
                   "operator": "=",
                   "value": "ok"
-                }
-              ]
-            },
-            {
-              "alias": "All users",
-              "groupBy": [
-                {
-                  "params": [
-                    "$g"
-                  ],
-                  "type": "time"
                 },
                 {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
                 }
-              ],
-              "measurement": "gatling.users",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "active"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
+              ]
             }
           ],
           "thresholds": [],
@@ -1755,6 +1814,7 @@
             "sort": 2,
             "value_type": "cumulative"
           },
+          "transparent": false,
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -1794,7 +1854,7 @@
           "datasource": "InfluxDB",
           "fill": 1,
           "gridPos": {
-            "h": 19,
+            "h": 13,
             "w": 24,
             "x": 0,
             "y": 64
@@ -1815,16 +1875,16 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 3,
+          "linewidth": 2,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "stack": false,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
@@ -1873,6 +1933,18 @@
                   "key": "status",
                   "operator": "=",
                   "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "request",
+                  "operator": "!=",
+                  "value": "allRequests"
                 }
               ]
             }
@@ -1957,7 +2029,7 @@
             "show": true,
             "sort": "total",
             "sortDesc": true,
-            "total": true,
+            "total": false,
             "values": true
           },
           "lines": true,
@@ -2019,6 +2091,12 @@
                   "key": "status",
                   "operator": "=",
                   "value": "ko"
+                },
+                {
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
                 }
               ]
             }
@@ -2081,12 +2159,12 @@
           "id": 17,
           "legend": {
             "alignAsTable": true,
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
             "hideEmpty": true,
             "hideZero": true,
-            "max": true,
-            "min": true,
+            "max": false,
+            "min": false,
             "show": true,
             "sort": "total",
             "sortDesc": true,
@@ -2094,9 +2172,9 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 3,
+          "linewidth": 2,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2156,6 +2234,12 @@
                   "key": "status",
                   "operator": "=",
                   "value": "ko"
+                },
+                {
+                  "condition": "AND",
+                  "key": "simulation",
+                  "operator": "=~",
+                  "value": "/^$simulation$/"
                 }
               ]
             }
@@ -2202,7 +2286,7 @@
           }
         }
       ],
-      "title": "Count: Error, Passed",
+      "title": "Errors",
       "type": "row"
     }
   ],
@@ -2215,11 +2299,38 @@
       {
         "allValue": null,
         "current": {
-          "text": "RecordedSimulation",
-          "value": "RecordedSimulation"
+          "text": "apimedia",
+          "value": "apimedia"
         },
         "datasource": "InfluxDB",
-        "definition": "",
+        "definition": "SHOW TAG VALUES WITH KEY = \"simulation\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "simulation",
+        "multi": true,
+        "name": "simulation",
+        "options": [],
+        "query": "SHOW TAG VALUES WITH KEY = \"simulation\"",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "SHOW TAG VALUES WITH KEY = \"group1\"",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "allRequests",
+          "value": [
+            "allRequests"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "SHOW TAG VALUES WITH KEY = \"request\"",
         "hide": 0,
         "includeAll": false,
         "label": "request",
@@ -2236,50 +2347,6 @@
         "tagsQuery": "SHOW TAG VALUES WITH KEY = \"group1\"",
         "type": "query",
         "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {
-          "selected": true,
-          "tags": [],
-          "text": "5",
-          "value": "5"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "gatling.data.graphite.writeInterval (sec)",
-        "multi": false,
-        "name": "writeInterval",
-        "options": [
-          {
-            "selected": false,
-            "text": "1",
-            "value": "1"
-          },
-          {
-            "selected": true,
-            "text": "5",
-            "value": "5"
-          },
-          {
-            "selected": false,
-            "text": "10",
-            "value": "10"
-          },
-          {
-            "selected": false,
-            "text": "30",
-            "value": "30"
-          },
-          {
-            "selected": false,
-            "text": "60",
-            "value": "60"
-          }
-        ],
-        "query": "1,5,10,30,60",
-        "skipUrlSync": false,
-        "type": "custom"
       },
       {
         "auto": true,
@@ -2372,7 +2439,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
