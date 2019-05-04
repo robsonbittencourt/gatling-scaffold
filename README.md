@@ -50,7 +50,7 @@ If you don't know how Gatling works I recommend these links:
 
 To execute your new simulation run the Docker command previously shown passing the simulation name in the ```-s``` parameter.
 
-## Using IDE
+### Using IDE
 
 The following example shows how to use this project in IntelliJ. 
 
