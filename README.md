@@ -48,6 +48,22 @@ If you don't know how Gatling works I recommend these links:
 
 To execute your new simulation run the Docker command previously shown passing the simulation name in the ```-s``` parameter.
 
+## Using IDE
+
+The following example shows how to use this project in IntelliJ. 
+
+This project use [Gradle](https://gradle.org/) and the main config is done in build.gradle file. Import the project as a Gradle project in IntelliJ.
+
+Open the BasicSimulation file and IntelliJ will suggest you to install the Scala plugin.
+
+![scala-plugin](media/scala-plugin.png)
+
+After restart IntelliJ open the same file and the IDE shows another sugestion: Configure Scala SDK.
+
+![scala-sdk](media/scala-sdk.png)
+
+After these settings everything should be right for you to create your simulations.
+
 ### Using Recorder
 
 Gatling has a tool to record user's actions in a browser and automatically create a simulation. To use this tool run the class ```src/gatling/recordes/GatlingRecorderWrapper.scala ```.
@@ -70,4 +86,3 @@ This project used as a foundation open source projects and resources that other 
 - [David Blooman](https://github.com/dblooman) - By the [project](https://github.com/dblooman/gatling-docker) that inspired this
 - [Denis Vazhenin](https://github.com/denvazh) - By the [Docker image](https://github.com/denvazh/gatling) used to perform the simulations
 - [polarnik](https://github.com/polarnik) - By the [Grafana Dashboard](https://grafana.com/dashboards/9935) which I used as a base
-- [Laszlo Kishalmi](https://github.com/lkishalmi) - By the [gatling gradle plugin](https://github.com/lkishalmi/gradle-gatling-plugin) used in this project 
