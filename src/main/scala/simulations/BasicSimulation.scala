@@ -1,5 +1,4 @@
-package sample
-
+package simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -9,7 +8,7 @@ import scala.concurrent.duration._
 
 class BasicSimulation extends Simulation {
 
-  val httpProtocol = http.baseUrl("https://httpstat.us/500")
+  val httpProtocol = http.baseUrl("https://httpstat.us")
 
   def random() = Random.nextInt(5000)
 

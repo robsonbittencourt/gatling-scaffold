@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.lkishalmi.gatling" version "3.0.2"
+    id 'scala'
 }
 
 repositories {
@@ -8,6 +8,12 @@ repositories {
 
 dependencies {
     implementation 'org.scala-lang:scala-library:2.12.8'
+    compile group: 'io.gatling', name: 'gatling-core', version: '3.1.1'
+    compile group: 'io.gatling', name: 'gatling-http', version: '3.1.1'
+    compile group: 'io.gatling', name: 'gatling-recorder', version: '3.1.1'
 }
+
+compileScala.targetCompatibility = 1.8
+ScalaCompileOptions.metaClass.useAnt = false
 
 defaultTasks 'clean', 'gatlingRun'

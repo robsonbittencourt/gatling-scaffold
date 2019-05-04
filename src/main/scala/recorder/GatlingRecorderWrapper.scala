@@ -1,4 +1,4 @@
-package sample;
+package recorder;
 
 import io.gatling.recorder.GatlingRecorder
 
