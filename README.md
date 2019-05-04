@@ -29,13 +29,15 @@ After the build and creation of the containers access http://localhost:3000. The
 
 ```
 docker run -it --rm --net="host" \
-    -v "$PWD"/src/gatling/resources:/opt/gatling/conf \
-    -v "$PWD"/src/gatling/:/opt/gatling/user-files \
+    -v "$PWD"/src/main/resources:/opt/gatling/conf \
+    -v "$PWD"/src/main/scala:/opt/gatling/user-files \
     -v "$PWD"/build/reports/gatling:/opt/gatling/results \
-    denvazh/gatling -s sample.BasicSimulation
+    denvazh/gatling -s simulations.BasicSimulation
 ```
 
 This command starts the sample simulation. Follow de execution in your Grafana (http://localhost:3000). After the run you can also view the Gatling report that displays more details. It is generated in ```gatling-scaffold/build/reports/gatling```
+
+![report](media/report.png)
 
 ## Creating new simulations
 
