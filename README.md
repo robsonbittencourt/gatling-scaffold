@@ -17,7 +17,7 @@ This project provides two main features for load testing developer. Visualizatio
 ### Visualization of data
 
 ``` 
-git@github.com:robsonbittencourt/gatling-scaffold.git
+git clone git@github.com:robsonbittencourt/gatling-scaffold.git
 cd gatling-scaffold
 docker-compose up 
 ```
