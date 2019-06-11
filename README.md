@@ -68,7 +68,7 @@ After these settings everything should be right for you to create your simulatio
 
 ### Using Recorder
 
-Gatling has a tool to record user's actions in a browser and automatically create a simulation. To use this tool run the class ```src/gatling/recordes/GatlingRecorderWrapper.scala ```.
+Gatling has a tool to record user's actions in a browser and automatically create a simulation. To use this tool run the class ```src/main/scala/recorder/GatlingRecorderWrapper.scala ```.
 
 ![recorder](media/recorder.png)
 
