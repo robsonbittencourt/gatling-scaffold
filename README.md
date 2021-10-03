@@ -32,7 +32,7 @@ docker run -it --rm --net="host" \
     -v "$PWD"/src/main/resources:/opt/gatling/conf \
     -v "$PWD"/src/main/scala:/opt/gatling/user-files \
     -v "$PWD"/build/reports/gatling:/opt/gatling/results \
-    denvazh/gatling:3.0.3 -s simulations.BasicSimulation
+    denvazh/gatling:3.2.1 -s simulations.BasicSimulation
 ```
 
 This command starts the sample simulation. Follow de execution in your Grafana (http://localhost:3000). After the run you can also view the Gatling report that displays more details. It is generated in ```gatling-scaffold/build/reports/gatling```
