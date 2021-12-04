@@ -65,21 +65,6 @@ docker run --rm --net="host"\
 
 When simulation is not specified, all are run.
 
-### Using Recorder
-
-Gatling has a tool to record user's actions in a browser and automatically create a simulation. To use this tool run the class ```src/main/scala/recorder/GatlingRecorderWrapper.scala ```.
-
-![recorder](media/recorder.png)
-
-Select the output path where the simulation file will be created. Before proceeding it is necessary to configure your proxy to direct to the Recorder. Here's an example using Ubuntu, but it should not be any different on other systems.
-
-![proxy](media/proxy.png)
-
-After this configuration is done start the Recorder and simulate the user's actions in the Browser. When you stop the Recorder the simulation file is generated with all your previous steps.
-
-More details about Gatling Recorder can be found [here](https://gatling.io/docs/2.3/http/recorder/).
-
-
 ## Acknowledgments
 
 This project used as a foundation open source projects and resources that other people have created. This shows when it is important to share our creations whenever possible because when we do this we have the chance to help several people.
