@@ -86,5 +86,6 @@ More details about Gatling Recorder can be found [here](https://gatling.io/docs/
 This project used as a foundation open source projects and resources that other people have created. This shows when it is important to share our creations whenever possible because when we do this we have the chance to help several people.
 
 - [David Blooman](https://github.com/dblooman) - By the [project](https://github.com/dblooman/gatling-docker) that inspired this
-- [Denis Vazhenin](https://github.com/denvazh) - By the [Docker image](https://github.com/denvazh/gatling) used to perform the simulations
+- [Denis Vazhenin](https://github.com/denvazh) - By the [Docker image](https://github.com/denvazh/gatling) used to perform the simulations (
+Before Scala is removed)
 - [polarnik](https://github.com/polarnik) - By the [Grafana Dashboard](https://grafana.com/dashboards/9935) which I used as a base
