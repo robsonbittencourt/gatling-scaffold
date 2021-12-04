@@ -10,6 +10,8 @@ The goal of this project is to provide a scaffold for building a load test suite
 
 ![grafana-dashboard](media/grafana-dashboard.gif)
 
+This project uses Kotlin to write the tests. It is possible to adapt it to use Java without much effort. [Here's a project](https://github.com/gatling/gatling-gradle-plugin-demo-java) that uses Java.
+
 ## Running example test
 
 This project provides two main features for load testing developer. Visualization of data and execution of simulations.
@@ -28,11 +30,12 @@ After the build and creation of the containers access http://localhost:3000. The
 ### Execution
 
 ```
-docker run -it --rm --net="host" \
-    -v "$PWD"/src/main/resources:/opt/gatling/conf \
-    -v "$PWD"/src/main/scala:/opt/gatling/user-files \
-    -v "$PWD"/build/reports/gatling:/opt/gatling/results \
-    denvazh/gatling:3.2.1 -s simulations.BasicSimulation
+docker run --rm --net="host"\
+  -v "$PWD":/gatling-scaffold \
+  -v "$PWD"/.gradle:/home/gradle/.gradle \
+  -v "$PWD"/build/reports/gatling:/build/reports/gatling \
+  -w /gatling-scaffold \
+  gradle:7.3.1-jdk17 gradle gatlingRun
 ```
 
 This command starts the sample simulation. Follow de execution in your Grafana (http://localhost:3000). After the run you can also view the Gatling report that displays more details. It is generated in ```gatling-scaffold/build/reports/gatling```
@@ -41,30 +44,26 @@ This command starts the sample simulation. Follow de execution in your Grafana (
 
 ## Creating new simulations
 
-You can rename this project and use it to create your own simulations. These should be placed in the ```src/gatling/simulations```. 
+You can rename this project and use it to create your own simulations. These should be placed in the ```src/gatling/kotlin/simulations```. 
 
 If you don't know how Gatling works I recommend these links:
 
 - [Gatling Documentation](https://gatling.io/docs/current/general/)
 - [Gatling Cheat Sheet](https://gatling.io/docs/current/cheat-sheet/)
 
-To execute your new simulation run the Docker command previously shown passing the simulation name in the ```-s``` parameter.
+To execute your new simulation run the Docker command previously shown passing the simulation full qualified class name with the Gradle Task.
 
-### Using IDE
 
-The following example shows how to use this project in IntelliJ. 
+```
+docker run --rm --net="host"\
+  -v "$PWD":/gatling-scaffold \
+  -v "$PWD"/.gradle:/home/gradle/.gradle \
+  -v "$PWD"/build/reports/gatling:/build/reports/gatling \
+  -w /gatling-scaffold \
+  gradle:7.3.1-jdk17 gradle gatlingRun-simulations.AnotherSimulation
+```
 
-This project use [Gradle](https://gradle.org/) and the main config is done in build.gradle file. Import the project as a Gradle project in IntelliJ.
-
-Open the BasicSimulation file and IntelliJ will suggest you to install the Scala plugin.
-
-![scala-plugin](media/scala-plugin.png)
-
-After restart IntelliJ open the same file and the IDE shows another sugestion: Configure Scala SDK.
-
-![scala-sdk](media/scala-sdk.png)
-
-After these settings everything should be right for you to create your simulations.
+When simulation is not specified, all are run.
 
 ### Using Recorder
 
@@ -86,6 +85,5 @@ More details about Gatling Recorder can be found [here](https://gatling.io/docs/
 This project used as a foundation open source projects and resources that other people have created. This shows when it is important to share our creations whenever possible because when we do this we have the chance to help several people.
 
 - [David Blooman](https://github.com/dblooman) - By the [project](https://github.com/dblooman/gatling-docker) that inspired this
-- [Denis Vazhenin](https://github.com/denvazh) - By the [Docker image](https://github.com/denvazh/gatling) used to perform the simulations (
-Before Scala is removed)
+- [Denis Vazhenin](https://github.com/denvazh) - By the [Docker image](https://github.com/denvazh/gatling) used to perform the simulations ([Before Scala is removed](https://github.com/robsonbittencourt/gatling-scaffold/commit/53d80e1194957a3273b2ee876658358fe3f284ec))
 - [polarnik](https://github.com/polarnik) - By the [Grafana Dashboard](https://grafana.com/dashboards/9935) which I used as a base
